@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Venta Mostrador
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #scanForm="ngForm" novalidate>
+  <button ion-button (click)="onScan(scanForm)" full>Leer Tarjeta</button>
+</form>
+</ion-content>

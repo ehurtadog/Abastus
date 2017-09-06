@@ -1,0 +1,4 @@
+<ion-tabs #mainTabs [selectedIndex]="mySelectedIndex">
+  <ion-tab [root]="tab1Root" tabTitle="Bienvenido" (ionSelect)="showRoot(mainTabs,0)" tabIcon="ribbon"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Venta"      (ionSelect)="showRoot(mainTabs,1)" tabIcon="cash"></ion-tab>
+</ion-tabs>

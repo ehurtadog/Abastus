@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons right>
+      <button ion-button icon-left [navPush]="accountSigninPage" *ngIf="globals.userId === ''">
+        <ion-icon name="log-in"></ion-icon>Iniciar Sesi&oacute;n
+      </button>
+      <button ion-button icon-left (click)="globals.logout()" *ngIf="globals.userId !== ''">
+        <ion-icon name="log-out"></ion-icon>Cerrar Sesi&oacute;n
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="globals.developerMode">Abastus (DEV)</ion-title>
+    <ion-title *ngIf="!globals.developerMode">Abastus</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="main">
+  <div id="main-content">
+    <img width="100%" src="assets/images/fruits_and_vegs_unsplash.jpg">
+    <div id="top">
+      <span class="title" *ngIf="globals.userId == ''">Bienvenido a Abastus!</span>
+      <span class="title" *ngIf="globals.userId != ''">Bienvenido, {{globals.getUserFullName()}}</span>
+    </div>
+  </div>
+</ion-content>

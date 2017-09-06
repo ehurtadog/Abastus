@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons right>
+      <button ion-button icon-left [navPush]="accountSigninPage" *ngIf="globals.userId === ''">
+        <ion-icon name="log-in"></ion-icon>Iniciar Sesi&oacute;n
+      </button>
+      <button ion-button icon-left (click)="globals.logout(); loco()" *ngIf="globals.userId !== ''">
+        <ion-icon name="log-out"></ion-icon>Cerrar Sesi&oacute;n
+      </button>
+    </ion-buttons>
+    <ion-title>Ventas</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div padding *ngIf="globals.userId === ''">
+    <p><b>Debe iniciar sesi&oacute;n para poder realizar una venta.</b></p>
+    <p>Oprima el bot&oacute;n "INICIAR SESI&Oacute;N" en la parte superior de la pantalla,
+       para iniciar una sesi&oacute;n en la aplicaci&oacute;n.</p>
+    <p>Si no est&aacute; registrado, contacte al administrador para registrarlo como un
+      usuario nuevo.</p>
+  </div>
+
+  <div *ngIf="globals.userId !== ''">
+    <ion-list>
+      <form #salesForm="ngForm" novalidate>
+        <h5>
+          Vendedor: {{seller}}
+        </h5>
+
+        <ion-item>
+          <ion-icon name="person" item-start color="primary"></ion-icon>
+            <!-- <ion-label>N&uacute;mero de cliente</ion-label> -->
+            <ion-input [(ngModel)]="clientData.clientId" ngControl="clientId" name="clientId" type="text" #clientId="ngModel" required
+              placeholder="N&uacute;mero de cliente"></ion-input>
+            <button ion-button (click)="clientDetails(salesForm)" type="submit" primary outline item-end>Buscar</button>
+        </ion-item>
+        <p [hidden]="clientId.valid || (!searchButtonClicked)" color="danger" padding-left>
+          Se requiere el n&uacute;mero de cliente
+        </p>
+        <ion-item>
+          <ion-icon name="{{clientData.clientStatus}}" item-start color="{{clientIconColor}}"></ion-icon>
+          <ion-label>Nombre: {{clientFullName}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="cash" item-start color="primary"></ion-icon>
+          <ion-label>Saldo: {{clientData.clientFormattedBalance}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="nutrition" item-start color="primary"></ion-icon>
+          <ion-label color="black">Art&iacute;culo:</ion-label>
+          <ion-select [(ngModel)]="itemId" okText="Aceptar" cancelText="Cancelar" [ngModelOptions]="{standalone: true}">
+            <ion-option value="VG-01">Cebolla</ion-option>
+            <ion-option value="VG-02">Jitomate</ion-option>
+            <ion-option value="FR-01">Mango</ion-option>
+            <ion-option value="VG-03">Papa</ion-option>
+            <ion-option value="FR-02">Uva</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="list-box" item-start color="primary"></ion-icon>
+          <ion-label>Unidad:</ion-label>
+          <ion-select [(ngModel)]="unitId" okText="Aceptar" cancelText="Cancelar" [ngModelOptions]="{standalone: true}">
+            <ion-option value=1>Pieza</ion-option>
+            <ion-option value=2>Kilo</ion-option>
+            <ion-option value=3>Caja</ion-option>
+            <ion-option value=4>Tonelada</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="apps" item-start color="primary"></ion-icon>
+            <!-- <ion-label>N&uacute;mero de cliente</ion-label> -->
+            <ion-input [(ngModel)]="salesData.quantity" ngControl="quantity" name="quantity" type="number" #quantity="ngModel" required="{{subFormRequired}}"
+              placeholder="Cantidad"></ion-input>
+        </ion-item>
+        <p [hidden]="quantity.valid || (!searchButtonClicked)" color="danger" padding-left>
+          Se requiere la cantidad
+        </p>
+        <ion-item>
+          <ion-icon name="cash" item-start color="primary"></ion-icon>
+            <!-- <ion-label>N&uacute;mero de cliente</ion-label> -->
+            <ion-input [(ngModel)]="salesData.price" ngControl="price" name="price" type="number" #price="ngModel" required="{{subFormRequired}}"
+              placeholder="Precio"></ion-input>
+        </ion-item>
+        <p [hidden]="price.valid || (!searchButtonClicked)" color="danger" padding-left>
+          Se requiere el precio
+        </p>
+      </form>
+
+      <ion-list-header> </ion-list-header>
+      <ion-row responsive-sm>
+        <ion-col>
+          <button ion-button (click)="sale(signInForm)" type="submit" primary block>Guardar</button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </div>
+</ion-content>

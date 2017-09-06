@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <!--<button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>-->
+    <ion-title>Iniciar Sesi&oacute;n</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5>Iniciar sesi&oacute;n en Abastus</h5>
+
+  <ion-list>
+    <form #signInForm="ngForm" novalidate>
+      <ion-item>
+        <ion-label floating>Usuario</ion-label>
+        <ion-input [(ngModel)]="userData.username" ngControl="username" name="username" type="text" #username="ngModel" required></ion-input>
+      </ion-item>
+      <p [hidden]="username.valid || (!signInButtonClicked && !forgotPasswordButtonClicked)" color="danger" padding-left>
+        El usuario es requerido
+      </p>
+
+      <ion-item>
+        <ion-label floating>Contrase&ntilde;a</ion-label>
+        <ion-input [(ngModel)]="userData.password" ngControl="password" name="password" type="password" #password="ngModel" required></ion-input>
+      </ion-item>
+      <p [hidden]="password.valid || !signInButtonClicked" color="danger" padding-left>
+        La contrase&ntilde;a es requerida
+      </p>
+    </form>
+  </ion-list>
+
+  <br>
+
+  <ion-row responsive-sm>
+    <ion-col>
+      <button ion-button (click)="onSignIn(signInForm)" type="submit" primary block>Iniciar Sesi&oacute;n</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button (click)="onForgotPassword(signInForm)" type="submit" primary block>Olvid&eacute; Contrase&ntilde;a</button>
+    </ion-col>
+  </ion-row>
+</ion-content>
